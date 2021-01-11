@@ -5,6 +5,17 @@ ref:
    name: centos
    tag: '8'
   commands: ipi-conf-commands.sh
+  # TODO: this needs changes in ci-operator to be generic
+  credentials:
+  - namespace: bbguimaraes
+    name: cluster-secrets-aws
+    mount_path: /var/run/secrets/ci.openshift.io/cluster-profile
+  dependencies:
+  - name: "release:latest"
+    env: RELEASE_IMAGE_LATEST
+  env:
+  - name: CLUSTER_PROFILE_DIR
+    default: /var/run/secrets/ci.openshift.io/cluster-profile
   resources:
     requests:
       cpu: 10m

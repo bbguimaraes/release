@@ -94,7 +94,7 @@ tests:
 - artifact_dir: /tmp/artifacts
   as: e2e-aws
   steps:
-    cluster_profile: aws
+#    cluster_profile: aws
     workflow: openshift-e2e-aws-loki
 - artifact_dir: /tmp/artifacts
   as: e2e-gcp

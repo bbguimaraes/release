@@ -6,10 +6,21 @@ ref:
     requests:
       cpu: 1000m
       memory: 2Gi
+  credentials:
+  - namespace: bbguimaraes
+    name: cluster-secrets-aws
+    mount_path: /var/run/secrets/ci.openshift.io/cluster-profile
   dependencies:
   - name: "release:latest"
     env: OPENSHIFT_INSTALL_RELEASE_IMAGE_OVERRIDE
   - name: "release:latest"
     env: RELEASE_IMAGE_LATEST
+  env:
+  - name: CLUSTER_PROFILE_DIR
+    default: /var/run/secrets/ci.openshift.io/cluster-profile
+  # TODO: this default will be needed while workflows including this step exist
+  # that still use cluster profiles
+  - name: CLUSTER_TYPE
+    default: default for migration
   documentation: |-
     The IPI install step runs the OpenShift Installer in order to bring up an OpenShift cluster, using the provided cluster profile to choose a target IaaS platform. Anything that needs to be configured using manifests should generate them before this step and put them in the SHARED_DIR with the filename manifest_(manifest_name).yml so that this step can pull in the manifest in.

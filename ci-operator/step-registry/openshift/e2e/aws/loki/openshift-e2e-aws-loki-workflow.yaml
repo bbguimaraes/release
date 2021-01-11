@@ -2,13 +2,19 @@ workflow:
   as: openshift-e2e-aws-loki
   steps:
     allow_best_effort_post_steps: true
+    env:
+      CLUSTER_TYPE: aws
     pre:
-    - ref: ipi-install-loki
+#    - ref: ipi-install-loki
     - chain: ipi-aws-pre
     test:
     - ref: openshift-e2e-test
     post:
-    - ref: gather-loki
+#    - ref: gather-loki
     - chain: ipi-aws-post
+    leases: []
+#    leases:
+#    - resource_type: aws-quota-slice
+#      env: LEASED_RESOURCE
   documentation: |-
     The Openshift E2E AWS workflow executes the common end-to-end test suite on AWS with a default cluster configuration with loki as log collector.

@@ -3,6 +3,10 @@ ref:
   from: tests
   commands: openshift-e2e-test-commands.sh
   active_deadline_seconds: 10800
+  credentials:
+  - namespace: bbguimaraes
+    name: cluster-secrets-aws
+    mount_path: /var/run/secrets/ci.openshift.io/cluster-profile
   env:
   - name: TEST_TYPE
     default: "suite"
@@ -49,6 +53,11 @@ ref:
       Name of the CSI driver manifest file to use.  Used by the `openshift-tests`
       program as TEST_CSI_DRIVER_FILES env. var., see its documentation for
       details. The file must be present in ${SHARED_DIR}.
+  - name: CLUSTER_TYPE
+    default: default for migration
+  # TODO: provide with `credentials`?
+  - name: CLUSTER_PROFILE_DIR
+    default: /var/run/secrets/ci.openshift.io/cluster-profile
   dependencies:
   - name: "release:latest"
     env: OPENSHIFT_UPGRADE_RELEASE_IMAGE_OVERRIDE
